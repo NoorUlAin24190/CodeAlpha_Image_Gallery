@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio Image Gallery</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <section class="gallery-section">
+      <h1 class="gallery-title">My Portfolio Gallery</h1>
+
+      <!-- Filters -->
+      <div class="filters">
+        <button class="filter-btn active" data-category="all">All</button>
+        <button class="filter-btn" data-category="nature">Nature</button>
+        <button class="filter-btn" data-category="city">City</button>
+        <button class="filter-btn" data-category="food">Food</button>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div class="gallery" id="gallery"></div>
+    </section>
+
+    <!-- Single View Section -->
+    <section class="single-view" style="display: none">
+      <button class="back-btn">Back to Gallery</button>
+      <img id="single-img" src="" alt="Selected" />
+      <div class="description">
+        <h2 id="single-title">Title Here</h2>
+        <p id="single-desc">Description here...</p>
+      </div>
+    </section>
+
+    <script>
+      const gallery = document.getElementById("gallery");
+
+      // Define your categories and their file extensions
+      const categories = {
+        nature: ["webp", "jpg", "jpeg", "jpg", "webp", "jpeg", "jpeg", "jpeg", "jpg", "jpeg"],
+        city: ["jpg", "jpg", "jpg", "jpg", "jpg", "jpg", "jpg", "jpg", "jpg", "jpg"],
+        food: ["jpg", "jpg", "jpg", "jpg", "jpg", "jpg", "jpg", "jpg", "jpg", "jpg"],
+      };
+
+      // Loop through each category
+      Object.entries(categories).forEach(([category, extensions]) => {
+        extensions.forEach((ext, index) => {
+          const i = index + 1;
+          const item = document.createElement("div");
+          item.className = "gallery-item";
+          item.setAttribute("data-category", category);
+
+          const img = document.createElement("img");
+          img.src = `images/${category}/${category}${i}.${ext}`;
+          img.alt = `${category.charAt(0).toUpperCase() + category.slice(1)} ${i}`;
+
+          const overlay = document.createElement("div");
+          overlay.className = "overlay";
+          overlay.textContent = "View";
+
+          item.appendChild(img);
+          item.appendChild(overlay);
+          gallery.appendChild(item);
+        });
+      });
+    </script>
+
+    <script src="script.js"></script>
+  </body>
+</html>
